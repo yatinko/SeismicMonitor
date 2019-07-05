@@ -1,0 +1,121 @@
+<html>
+    <head>
+        <title>EarthQuake Watch</title>
+    
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin=""/>
+
+        <link rel="stylesheet" href="Menu.css">
+        
+        <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+        integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+        crossorigin=""></script>
+
+    </head>
+    <body bgcolor="black">
+        <div id = "map"></div>
+        
+        <script>
+            const mymap = L.map('map').setView([0, 0], 2);
+            
+            const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attribution">CARTO</a>';
+            const tileUrl = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png';
+            const tiles = L.tileLayer(tileUrl, { attribution });
+            tiles.addTo(mymap);
+
+        </script>
+
+        <nav class="floating-menu">
+            <h2>Menu</h2>
+            <br>
+            <h3>Magnitude: </h3>
+            <select id="m" onchange="magnitude()">
+                <option value="all">all</option>
+                <option value="4.5">4.5+</option>
+                <option value="2.5">2.5+</option>
+                <option value="1.0">1.0+</option>
+                <option value="significant">Significant</option>
+            </select>
+            <br>
+            <h3>Duration: </h3>
+            <select id="d" onchange="duration()">
+                <option value="hour">Past Hour</option>
+                <option value="day">Past Day</option>
+                <option value="week">Past Week</option>
+                <option value="month">Past Month</option>
+            </select>
+            <h3>Count: <span id="ln"></span></h3>
+        </nav>
+
+
+        <script>
+            m = "all";
+            d = "hour";
+            var url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/'+m+'_'+d+'.geojson';
+            console.log(url);
+            var markerGroup = L.layerGroup();
+            var circle = L.circleMarker().addTo(markerGroup);
+
+            function magnitude() {
+                var e1 = document.getElementById("m");
+                m = e1.options[e1.selectedIndex].value;
+                ul();
+            }
+
+            function duration() {
+                var e2 = document.getElementById("d");
+                d = e2.options[e2.selectedIndex].value;
+                magnitude();
+                ul();
+            }
+
+            function ul() {
+                url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/"+m+"_"+d+".geojson";
+                getEq();
+            }
+
+            async function getEq() {
+                markerGroup.clearLayers();
+                const response = await fetch(url);
+                const data = await response.json();
+            
+                for(var i = 0; i < data.features.length; i++) {
+                    lon = data.features[i].geometry.coordinates[0];
+                    lat = data.features[i].geometry.coordinates[1];
+                    time = data.features[i].properties.time;
+                    mag = data.features[i].properties.mag;
+                    details = data.features[i].properties.url;
+                    place = data.features[i].properties.place;
+
+                    len = data.features.length;
+
+                    console.log(len);
+                    document.getElementById('ln').textContent = len.toFixed();
+
+                    var myDate = new Date(time);
+                
+                    m = Math.pow(3, mag);
+                    m = Math.sqrt(m);
+
+                    var popup = L.popup()
+                        .setContent("Location: "+place+"\nLatitude: "+lat+"\nLongitude: "+lon+"\nMagnitude: "+mag+"\nTime: "+myDate.toLocaleString()+"\n"+'<a href = '+details+'>Learn more</a>');
+
+                    L.circleMarker([lat, lon],{
+                        color: 'red',
+                        fillColor: '#f03',
+                        fillOpacity: 0.5,
+                        radius: m
+                    }).addTo(markerGroup).bindPopup(popup);
+
+                }
+                console.log(data);
+
+                markerGroup.addTo(mymap);
+            }
+            getEq();
+            setInterval(getEq, 60000);
+        </script>
+
+    </body>
+</html>
