@@ -1,0 +1,108 @@
+
+main {
+  margin-bottom: 200%;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+}
+
+.floating-menu {
+  font-family: sans-serif;
+  background: rgb(31, 30, 30);
+  opacity: 0.6;
+  padding: 5px;
+  width: 250px;
+  z-index: 1000;
+  position: fixed;
+  bottom: 15px;
+  left: 15px;
+  border-radius: 25px;
+}
+
+.floating-menu select{
+  background-color: black;
+  color: white;
+  width: 100px;
+} 
+
+.floating-menu option{
+  background-color: black;
+  color: white;
+  padding-left: 20px;
+}
+
+.floating-menu h3 {
+  font-size: 0.9rem;
+  display: block;
+  margin: 0 0.5em;
+  color: white;
+  padding: 10px;
+}
+
+.floating-menu h2 {
+  font-size: 1.2rem;
+  display: block;
+  margin: 0 0.5em;
+  color: white;
+}
+
+.floating-menu a {
+  color: white;
+  font-size: 1.2rem;
+  font-family: monospace;
+  font-style: normal;
+}
+
+#about {
+    font-size: 1rem;
+}
+
+#about img {
+  height: 390px;
+  width: 650px;
+  display: block;
+  margin: auto;
+  padding-top: 5%;
+}
+
+#about h1 {
+  color: white;
+  font-size: 2.4rem;
+  text-align: center;
+  padding-top: 2rem;
+}
+
+#about div {
+  clear: both;
+}
+
+#about .text {
+  color: white;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+#about .left {
+  width: 50%;
+  float: left;
+  text-align: right;
+}
+
+#about .right {
+  width: 50%;
+  float: right;
+}
+
+#about .center {
+  text-align: center;
+}
+
+p {
+  color: white;
+}
+
+a {
+  color: white;
+}

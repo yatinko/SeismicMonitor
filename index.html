@@ -6,7 +6,7 @@
         integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
         crossorigin=""/>
 
-        <link rel="stylesheet" href="Menu.css">
+        <link rel="stylesheet" href="styles/Menu.css">
         
         <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
         integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
@@ -29,23 +29,23 @@
         <nav class="floating-menu">
             <h2>Menu</h2>
             <br>
-            <h3>Magnitude: </h3>
-            <select id="m" onchange="magnitude()">
+            <h3>Magnitude: 
+                <select id="m" onchange="magnitude()">
                 <option value="all">all</option>
                 <option value="4.5">4.5+</option>
                 <option value="2.5">2.5+</option>
                 <option value="1.0">1.0+</option>
                 <option value="significant">Significant</option>
-            </select>
-            <br>
-            <h3>Duration: </h3>
-            <select id="d" onchange="duration()">
+            </select></h3>
+            <h3>Duration: 
+                <select id="d" onchange="duration()">
                 <option value="hour">Past Hour</option>
                 <option value="day">Past Day</option>
                 <option value="week">Past Week</option>
                 <option value="month">Past Month</option>
-            </select>
+            </select></h3>
             <h3>Count: <span id="ln"></span></h3>
+            <h4><a href = "about.html">About</h4>
         </nav>
 
 
