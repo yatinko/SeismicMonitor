@@ -99,10 +99,18 @@ main {
   text-align: center;
 }
 
-p {
+#about .inf p {
   color: white;
 }
 
+p {
+  color: rgb(139, 136, 136);
+}
+
 a {
+  color: white;
+}
+
+b {
   color: white;
 }
