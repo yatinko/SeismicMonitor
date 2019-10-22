@@ -53,29 +53,29 @@
             m = "all";
             d = "hour";
             var url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/'+m+'_'+d+'.geojson';
+            console.log(url);
             var markerGroup = L.layerGroup();
             var circle = L.circleMarker().addTo(markerGroup);
 
             function magnitude() {
                 var e1 = document.getElementById("m");
                 m = e1.options[e1.selectedIndex].value;
-                getData();
+                ul();
             }
 
             function duration() {
                 var e2 = document.getElementById("d");
                 d = e2.options[e2.selectedIndex].value;
                 magnitude();
-                getData();
+                ul();
             }
 
-            function getData() {
+            function ul() {
                 url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/"+m+"_"+d+".geojson";
-                document.getElementById('ln').textContent = '-';
-                map();
+                getEq();
             }
 
-            async function map() {
+            async function getEq() {
                 markerGroup.clearLayers();
                 const response = await fetch(url);
                 const data = await response.json();
@@ -109,11 +109,12 @@
                     }).addTo(markerGroup).bindPopup(popup);
 
                 }
+                console.log(data);
+
                 markerGroup.addTo(mymap);
             }
-
-            map();
-            setInterval(map, 60000);
+            getEq();
+            setInterval(getEq, 60000);
         </script>
 
     </body>
